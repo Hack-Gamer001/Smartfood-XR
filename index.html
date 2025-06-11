@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smartfood XR - Escáner Nutricional</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="shortcut icon" href="images/apple-icon.png" type="image/x-icon">
+    <meta name="theme-color" content="#4CAF50">
+    <meta name="title" content="Smartfood XR - Escáner Nutricional de Frutas">
+    <meta name="description" content="Escanea frutas con tu cámara y obtén información nutricional completa al instante.">
+</head>
+
+<body>
+    <header class="hero">
+        <nav class="nav container">
+            <div class="nav__logo">
+                <h2 class="nav__title">🍎 Smartfood XR</h2>
+            </div>
+            <ul class="nav__link">
+                <li><a href="index.html" class="nav__links">Inicio</a></li>
+                <li><a href="scanner.html" class="nav__links">Escáner</a></li>
+                <li><a href="features.html" class="nav__links">Funciones</a></li>
+                <li><a href="support.html" class="nav__links">Soporte</a></li>
+            </ul>
+            <div class="nav__menu">☰</div>
+        </nav>
+
+        <section class="hero__container container">
+            <h1 class="hero__title">Descubre la Nutrición de las Frutas</h1>
+            <p class="hero__paragraph">Escanea cualquier fruta con tu cámara y obtén información nutricional completa al instante. Conoce calorías, vitaminas, minerales y mucho más.</p>
+            <a href="scanner.html" class="cta">Comenzar a Escanear</a>
+        </section>
+    </header>
+
+    <main>
+        <section class="scanner">
+            <div class="container">
+                <div class="scanner__container">
+                    <div class="scanner__content">
+                        <h2>Escáner Inteligente</h2>
+                        <p>Utiliza la cámara de tu dispositivo para identificar frutas automáticamente. Nuestro sistema de inteligencia artificial reconoce más de 100 tipos diferentes de frutas y te proporciona información nutricional precisa.</p>
+                        <a href="scanner.html" class="cta">Abrir Cámara</a>
+                    </div>
+                    <div class="scanner__demo">
+                        <div class="camera__preview" onclick="startScan()">📱</div>
+                        <button class="scan__button" onclick="scanFruit()">Escanear Fruta</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="features">
+            <div class="container">
+                <h2 class="subtitle">Funciones Principales</h2>
+                <div class="features__grid">
+                    <div class="feature__card">
+                        <span class="feature__icon">🔍</span>
+                        <h3 class="feature__title">Reconocimiento IA</h3>
+                        <p>Tecnología de inteligencia artificial avanzada que identifica frutas con 95% de precisión usando solo la cámara de tu teléfono.</p>
+                    </div>
+                    <div class="feature__card">
+                        <span class="feature__icon">📊</span>
+                        <h3 class="feature__title">Info Nutricional</h3>
+                        <p>Obtén datos completos de calorías, vitaminas, minerales, fibra y otros nutrientes esenciales de cada fruta escaneada.</p>
+                    </div>
+                    <div class="feature__card">
+                        <span class="feature__icon">💾</span>
+                        <h3 class="feature__title">Historial Personal</h3>
+                        <p>Guarda tus escaneos anteriores y lleva un registro de tu consumo de frutas para mantener una dieta balanceada.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="nutrition">
+            <div class="container">
+                <h2 class="subtitle">Ejemplo de Información Nutricional</h2>
+                <div class="nutrition__example">
+                    <div class="fruit__info">
+                        <div class="fruit__image">🍊</div>
+                        <div class="nutrition__details">
+                            <h3>Naranja (100g)</h3>
+                            <div class="nutrition__grid">
+                                <div class="nutrition__item">
+                                    <div class="nutrition__value">47</div>
+                                    <div>Calorías</div>
+                                </div>
+                                <div class="nutrition__item">
+                                    <div class="nutrition__value">53mg</div>
+                                    <div>Vitamina C</div>
+                                </div>
+                                <div class="nutrition__item">
+                                    <div class="nutrition__value">2.4g</div>
+                                    <div>Fibra</div>
+                                </div>
+                                <div class="nutrition__item">
+                                    <div class="nutrition__value">12g</div>
+                                    <div>Azúcares</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="support">
+            <div class="container">
+                <h2 class="subtitle">Soporte y Ayuda</h2>
+                <div class="support__grid">
+                    <div class="support__card">
+                        <div class="support__icon">❓</div>
+                        <h3>FAQ</h3>
+                        <p>Encuentra respuestas a las preguntas más frecuentes sobre el uso de la aplicación.</p>
+                    </div>
+                    <div class="support__card">
+                        <div class="support__icon">💬</div>
+                        <h3>Chat de Ayuda</h3>
+                        <p>Contacta con nuestro equipo de soporte en tiempo real para resolver tus dudas.</p>
+                    </div>
+                    <div class="support__card">
+                        <div class="support__icon">📧</div>
+                        <h3>Email</h3>
+                        <p>Envíanos un correo con tus consultas y te responderemos en menos de 24 horas.</p>
+                    </div>
+                    <div class="support__card">
+                        <div class="support__icon">📱</div>
+                        <h3>Tutoriales</h3>
+                        <p>Videos paso a paso que te enseñan a usar todas las funciones de FruitScan.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__content">
+                <div class="footer__section">
+                    <h3>Smartfood XR</h3>
+                    <p>La aplicación más completa para conocer la información nutricional de las frutas mediante escaneo inteligente.</p>
+                </div>
+                <div class="footer__section">
+                    <h3>Enlaces</h3>
+                    <ul>
+                        <li><a href="index.html">Inicio</a></li>
+                        <li><a href="scanner.html">Escáner</a></li>
+                        <li><a href="features.html">Funciones</a></li>
+                        <li><a href="support.html">Soporte</a></li>
+                    </ul>
+                </div>
+                <div class="footer__section">
+                    <h3>Soporte</h3>
+                    <ul>
+                        <li><a href="support.html">Centro de Ayuda</a></li>
+                        <li><a href="support.html">Contacto</a></li>
+                        <li><a href="support.html">Reportar Error</a></li>
+                        <li><a href="support.html">Política de Privacidad</a></li>
+                    </ul>
+                </div>
+                <div class="footer__section">
+                    <h3>Conecta</h3>
+                    <ul>
+                        <li><a href="#">📧 soporte@smartfoodxr.com</a></li>
+                        <li><a href="#">📱 +1-234-567-8900</a></li>
+                        <li><a href="#">🌐 www.smartfoodxr.com</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer__bottom">
+                <p>&copy; 2025 Smartfood XR. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/scripts.js"></script>
+</body>
+</html>

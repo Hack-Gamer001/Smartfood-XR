@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Escáner - Smartfood XR</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header class="hero">
+        <nav class="nav container">
+            <div class="nav__logo">
+                <h2 class="nav__title">🍎 Smartfood XR</h2>
+            </div>
+            <ul class="nav__link">
+                <li><a href="index.html" class="nav__links">Inicio</a></li>
+                <li><a href="scanner.html" class="nav__links">Escáner</a></li>
+                <li><a href="features.html" class="nav__links">Funciones</a></li>
+                <li><a href="support.html" class="nav__links">Soporte</a></li>
+            </ul>
+            <div class="nav__menu">☰</div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="scanner">
+            <div class="container">
+                <h2 class="subtitle">Escáner Inteligente de Frutas</h2>
+                <p class="scanner__description">
+                    Utiliza la cámara de tu dispositivo para identificar frutas automáticamente y obtener información nutricional detallada al instante. Nuestro sistema de inteligencia artificial reconoce una amplia variedad de frutas y te proporciona datos precisos sobre sus nutrientes.
+                </p>
+
+                <div class="scanner__container">
+                    <div class="scanner__content">
+                        <h3>¿Cómo funciona?</h3>
+                        <p>
+                            Simplemente abre la cámara de tu dispositivo a través de nuestra aplicación, apunta a la fruta que deseas escanear y deja que nuestra tecnología de reconocimiento de imágenes haga el resto. En segundos, obtendrás información detallada sobre las calorías, vitaminas, minerales y otros nutrientes esenciales.
+                        </p>
+                        <h3>Beneficios del Escáner</h3>
+                        <ul class="benefits__list">
+                            <li>Identificación rápida y precisa de frutas.</li>
+                            <li>Información nutricional detallada y precisa.</li>
+                            <li>Historial de escaneos para llevar un registro de tu consumo de frutas.</li>
+                            <li>Recomendaciones personalizadas para una dieta balanceada.</li>
+                        </ul>
+                        <a href="#" class="cta">Abrir Cámara</a>
+                    </div>
+                    <div class="scanner__demo">
+                        <div class="camera__preview" onclick="startScan()">📱</div>
+                        <button class="scan__button" onclick="scanFruit()">Escanear Fruta</button>
+                        <p class="demo__instructions">Toca el área de vista previa para comenzar a escanear.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="scanner-steps">
+            <div class="container">
+                <h3 class="subtitle">Pasos para Escanear</h3>
+                <div class="steps__grid">
+                    <div class="step__card">
+                        <div class="step__icon">1</div>
+                        <h4>Abrir la Cámara</h4>
+                        <p>Haz clic en el botón "Abrir Cámara" para activar la cámara de tu dispositivo.</p>
+                    </div>
+                    <div class="step__card">
+                        <div class="step__icon">2</div>
+                        <h4>Apuntar a la Fruta</h4>
+                        <p>Coloca la fruta dentro del área de vista previa de la cámara.</p>
+                    </div>
+                    <div class="step__card">
+                        <div class="step__icon">3</div>
+                        <h4>Escanear</h4>
+                        <p>Haz clic en el botón "Escanear Fruta" para obtener la información nutricional.</p>
+                    </div>
+                    <div class="step__card">
+                        <div class="step__icon">4</div>
+                        <h4>Ver Resultados</h4>
+                        <p>Obtén información detallada sobre la fruta escaneada y guarda el resultado en tu historial.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__content">
+                <div class="footer__section">
+                    <h3>Smartfood XR</h3>
+                    <p>La aplicación más completa para conocer la información nutricional de las frutas mediante escaneo inteligente.</p>
+                </div>
+                <div class="footer__section">
+                    <h3>Enlaces Rápidos</h3>
+                    <ul>
+                        <li><a href="index.html">Inicio</a></li>
+                        <li><a href="scanner.html">Escáner</a></li>
+                        <li><a href="features.html">Funciones</a></li>
+                        <li><a href="support.html">Soporte</a></li>
+                    </ul>
+                </div>
+                <div class="footer__section">
+                    <h3>Contacto</h3>
+                    <ul>
+                        <li><a href="mailto:020200221h@uandina.edu.pe">📧 020200221h@uandina.edu.pe</a></li>
+                        <li><a href="https://wa.me/51977175820">📱 +51 977 175 820</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer__bottom">
+                <p>&copy; 2025 Smartfood XR. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/scripts.js"></script>
+</body>
+</html>
