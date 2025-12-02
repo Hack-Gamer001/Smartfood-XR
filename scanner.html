@@ -7,53 +7,99 @@
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <header class="hero">
+    <header class="hero hero--scanner">
         <nav class="nav container">
             <div class="nav__logo">
                 <h2 class="nav__title">🍎 Smartfood XR</h2>
             </div>
             <ul class="nav__link">
                 <li><a href="index.html" class="nav__links">Inicio</a></li>
-                <li><a href="scanner.html" class="nav__links">Escáner</a></li>
+                <li><a href="scanner.html" class="nav__links nav__links--active">Escáner</a></li>
                 <li><a href="features.html" class="nav__links">Funciones</a></li>
                 <li><a href="support.html" class="nav__links">Soporte</a></li>
             </ul>
             <div class="nav__menu">☰</div>
         </nav>
+
+        <div class="hero__content container">
+            <div class="hero__text">
+                <h1 class="hero__title">Escáner Inteligente de Frutas en Tiempo Real</h1>
+                <p class="hero__subtitle">
+                    Apunta tu cámara, detecta la fruta y obtén al instante su información nutricional 
+                    con Smartfood XR.
+                </p>
+                <div class="hero__actions">
+                    <a href="#" class="cta cta--primary" onclick="openCameraDemo(event)">Abrir Cámara</a>
+                    <button class="cta cta--outline" onclick="openDemoVideo()">Ver demo en video</button>
+                </div>
+                <p class="hero__note">⚡ Tecnología de visión por computadora con IA integrada.</p>
+            </div>
+            <div class="hero__visual">
+                <div class="video-card" onclick="openDemoVideo()">
+                    <div class="video-card__thumb">
+                        <!-- Miniatura del video de Google Drive -->
+                        <img src="https://drive.google.com/thumbnail?id=14xXOMAedX3a2v1RaRP_Y9zJi_efK5Tdc&sz=w1200" 
+                             alt="Demo de funcionamiento del escáner Smartfood XR">
+                        <div class="video-card__overlay"></div>
+                        <div class="video-card__play">▶</div>
+                    </div>
+                    <div class="video-card__info">
+                        <h3>Demo del escáner en acción</h3>
+                        <p>Observa cómo Smartfood XR detecta frutas y muestra su información nutricional en tiempo real.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </header>
 
     <main>
+        <!-- Sección de explicación del escáner -->
         <section class="scanner">
-            <div class="container">
-                <h2 class="subtitle">Escáner Inteligente de Frutas</h2>
-                <p class="scanner__description">
-                    Utiliza la cámara de tu dispositivo para identificar frutas automáticamente y obtener información nutricional detallada al instante. Nuestro sistema de inteligencia artificial reconoce una amplia variedad de frutas y te proporciona datos precisos sobre sus nutrientes.
-                </p>
+            <div class="container scanner__container">
+                <div class="scanner__content">
+                    <h2 class="subtitle">Escáner Inteligente de Frutas</h2>
+                    <p class="scanner__description">
+                        Utiliza la cámara de tu dispositivo para identificar frutas automáticamente y obtener 
+                        información nutricional detallada al instante. Nuestro sistema de inteligencia artificial 
+                        reconoce una amplia variedad de frutas y te proporciona datos precisos sobre sus nutrientes.
+                    </p>
 
-                <div class="scanner__container">
-                    <div class="scanner__content">
-                        <h3>¿Cómo funciona?</h3>
-                        <p>
-                            Simplemente abre la cámara de tu dispositivo a través de nuestra aplicación, apunta a la fruta que deseas escanear y deja que nuestra tecnología de reconocimiento de imágenes haga el resto. En segundos, obtendrás información detallada sobre las calorías, vitaminas, minerales y otros nutrientes esenciales.
-                        </p>
-                        <h3>Beneficios del Escáner</h3>
-                        <ul class="benefits__list">
-                            <li>Identificación rápida y precisa de frutas.</li>
-                            <li>Información nutricional detallada y precisa.</li>
-                            <li>Historial de escaneos para llevar un registro de tu consumo de frutas.</li>
-                            <li>Recomendaciones personalizadas para una dieta balanceada.</li>
-                        </ul>
-                        <a href="#" class="cta">Abrir Cámara</a>
+                    <h3>¿Cómo funciona?</h3>
+                    <p>
+                        Abre la cámara desde nuestra aplicación, apunta a la fruta que deseas escanear 
+                        y deja que nuestra tecnología de reconocimiento de imágenes haga el resto. 
+                        En segundos, obtendrás información detallada sobre calorías, vitaminas, minerales 
+                        y otros nutrientes esenciales.
+                    </p>
+
+                    <h3>Beneficios del Escáner</h3>
+                    <ul class="benefits__list">
+                        <li>⚡ Identificación rápida y precisa de frutas.</li>
+                        <li>📊 Información nutricional clara y visual.</li>
+                        <li>📚 Historial de escaneos para seguir tu consumo.</li>
+                        <li>🥗 Recomendaciones para una dieta más equilibrada.</li>
+                    </ul>
+
+                    <a href="#" class="cta cta--primary" onclick="openCameraDemo(event)">Probar escáner</a>
+                </div>
+
+                <!-- Demo visual / placeholder de cámara -->
+                <div class="scanner__demo">
+                    <div class="camera__preview" onclick="openCameraDemo(event)">
+                        <div class="camera__frame">
+                            <span class="camera__icon">📱</span>
+                            <p class="camera__text">Simulación de vista previa de cámara</p>
+                        </div>
                     </div>
-                    <div class="scanner__demo">
-                        <div class="camera__preview" onclick="startScan()">📱</div>
-                        <button class="scan__button" onclick="scanFruit()">Escanear Fruta</button>
-                        <p class="demo__instructions">Toca el área de vista previa para comenzar a escanear.</p>
-                    </div>
+                    <button class="scan__button" onclick="openDemoVideo()">Ver escaneo en acción</button>
+                    <p class="demo__instructions">
+                        Toca la miniatura de video o el área de vista previa para ver cómo funciona el escáner.
+                    </p>
                 </div>
             </div>
         </section>
 
+        <!-- Pasos del escáner -->
         <section class="scanner-steps">
             <div class="container">
                 <h3 class="subtitle">Pasos para Escanear</h3>
@@ -61,34 +107,54 @@
                     <div class="step__card">
                         <div class="step__icon">1</div>
                         <h4>Abrir la Cámara</h4>
-                        <p>Haz clic en el botón "Abrir Cámara" para activar la cámara de tu dispositivo.</p>
+                        <p>Haz clic en “Abrir Cámara” dentro de la app para activar el escáner.</p>
                     </div>
                     <div class="step__card">
                         <div class="step__icon">2</div>
                         <h4>Apuntar a la Fruta</h4>
-                        <p>Coloca la fruta dentro del área de vista previa de la cámara.</p>
+                        <p>Coloca la fruta dentro del área de detección para que la IA la reconozca.</p>
                     </div>
                     <div class="step__card">
                         <div class="step__icon">3</div>
                         <h4>Escanear</h4>
-                        <p>Haz clic en el botón "Escanear Fruta" para obtener la información nutricional.</p>
+                        <p>El sistema analiza la imagen y detecta el tipo de fruta en segundos.</p>
                     </div>
                     <div class="step__card">
                         <div class="step__icon">4</div>
                         <h4>Ver Resultados</h4>
-                        <p>Obtén información detallada sobre la fruta escaneada y guarda el resultado en tu historial.</p>
+                        <p>Consulta la información nutricional y guarda el resultado en tu historial.</p>
                     </div>
                 </div>
             </div>
         </section>
     </main>
 
+    <!-- Modal de video (demo) -->
+    <div id="demoModal" class="modal">
+        <div class="modal__backdrop" onclick="closeDemoVideo()"></div>
+        <div class="modal__content">
+            <button class="modal__close" onclick="closeDemoVideo()">✕</button>
+            <div class="video__wrapper">
+                <iframe
+                    id="demoVideoFrame"
+                    src="https://drive.google.com/file/d/14xXOMAedX3a2v1RaRP_Y9zJi_efK5Tdc/preview"
+                    frameborder="0"
+                    allow="autoplay; encrypted-media"
+                    allowfullscreen>
+                </iframe>
+            </div>
+        </div>
+    </div>
+
     <footer class="footer">
         <div class="container">
             <div class="footer__content">
                 <div class="footer__section">
                     <h3>Smartfood XR</h3>
-                    <p>La aplicación más completa para conocer la información nutricional de las frutas mediante escaneo inteligente.</p>
+                    <p>
+                        La aplicación más completa para conocer la información nutricional de las frutas 
+                        mediante escaneo inteligente.
+                    </p>
                 </div>
                 <div class="footer__section">
                     <h3>Enlaces Rápidos</h3>
@@ -103,7 +169,7 @@
                     <h3>Contacto</h3>
                     <ul>
                         <li><a href="mailto:020200221h@uandina.edu.pe">📧 020200221h@uandina.edu.pe</a></li>
-                        <li><a href="https://wa.me/51977175820">📱 +51 977 175 820</a></li>
+                        <li><a href="https://wa.me/51977175820" target="_blank">📱 +51 977 175 820</a></li>
                     </ul>
                 </div>
             </div>
@@ -112,6 +178,33 @@
             </div>
         </div>
     </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Abre el modal y muestra el video
+        function openDemoVideo() {
+            const modal = document.getElementById('demoModal');
+            modal.classList.add('modal--active');
+        }
+
+        // Cierra el modal y reinicia el video
+        function closeDemoVideo() {
+            const modal = document.getElementById('demoModal');
+            modal.classList.remove('modal--active');
+
+            // Reiniciar el video para que se pause al cerrar
+            const iframe = document.getElementById('demoVideoFrame');
+            const src = iframe.src;
+            iframe.src = src;
+        }
+
+        // Placeholder para “Abrir Cámara”
+        // Aquí luego puedes integrar tu lógica real (WebRTC, app nativa, etc.)
+        function openCameraDemo(event) {
+            if (event) event.preventDefault();
+            alert('Esta opción abrirá la cámara en la app real de Smartfood XR.');
+        }
+    </script>
 
     <script src="js/scripts.js"></script>
 </body>
