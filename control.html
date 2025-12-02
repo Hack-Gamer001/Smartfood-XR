@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tablero de Control Nutricional</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: #fff;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 20px;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .metric-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .metric-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .metric-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-right: 15px;
+        }
+
+        .metric-title {
+            flex: 1;
+        }
+
+        .metric-title h3 {
+            color: #1e3c72;
+            font-size: 1.2em;
+            margin-bottom: 5px;
+        }
+
+        .metric-title p {
+            color: #666;
+            font-size: 0.85em;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 250px;
+            margin-top: 15px;
+        }
+
+        .metric-value {
+            text-align: center;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 10px;
+            margin-top: 15px;
+        }
+
+        .metric-value .value {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        .metric-value .label {
+            font-size: 0.9em;
+            opacity: 0.9;
+            margin-top: 5px;
+        }
+
+        .status-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-left: 10px;
+        }
+
+        .status-good { background: #4caf50; }
+        .status-warning { background: #ff9800; }
+        .status-critical { background: #f44336; }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .stat-item {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .stat-item .stat-value {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #1e3c72;
+        }
+
+        .stat-item .stat-label {
+            font-size: 0.85em;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        @media (max-width: 768px) {
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 1.8em;
+            }
+        }
+
+        .refresh-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #4caf50;
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 50px;
+            font-size: 1em;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .refresh-btn:hover {
+            background: #45a049;
+            transform: scale(1.05);
+        }
+
+        .refresh-btn:active {
+            transform: scale(0.95);
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🍎 Tablero de Control Nutricional - Métricas de Calidad</h1>
+        <p>Sistema de Análisis y Monitoreo de Detección de Frutas y Verduras con IA</p>
+    </div>
+
+    <div class="dashboard" id="dashboard"></div>
+
+    <button class="refresh-btn" onclick="refreshData()">🔄 Actualizar Datos</button>
+
+    <script>
+        // Datos simulados para las métricas
+        let metricsData = {
+            rotacion: { actual: 87, historico: [65, 72, 78, 83, 87] },
+            tasaFallas: { actual: 3.2, historico: [5.8, 4.9, 4.2, 3.7, 3.2] },
+            disponibilidad: { actual: 99.2, historico: [97.5, 98.1, 98.6, 99.0, 99.2] },
+            densidadDefectos: { actual: 0.8, historico: [1.5, 1.3, 1.1, 0.9, 0.8] },
+            mttd: { actual: 12.5, historico: [18, 16, 14.5, 13, 12.5] },
+            mtbf: { actual: 340, historico: [280, 295, 310, 325, 340] },
+            mttr: { actual: 8.3, historico: [12, 11, 9.5, 8.8, 8.3] },
+            csat: { actual: 4.6, historico: [4.1, 4.2, 4.4, 4.5, 4.6] },
+            tiempoRemediacion: { actual: 15.2, historico: [22, 19, 17.5, 16, 15.2] },
+            coberturaCodigo: { actual: 92, historico: [78, 82, 86, 89, 92] }
+        };
+
+        const metrics = [
+            {
+                id: 'rotacion',
+                title: 'Rotación Total de Códigos',
+                subtitle: 'Actualizaciones y mejoras del sistema',
+                icon: '🔄',
+                color: '#7cb342',
+                type: 'bar'
+            },
+            {
+                id: 'tasaFallas',
+                title: 'Tasa de Fallas',
+                subtitle: 'Errores por cada 100 detecciones',
+                icon: '⚠️',
+                color: '#e53935',
+                type: 'line'
+            },
+            {
+                id: 'disponibilidad',
+                title: 'Disponibilidad del Sistema',
+                subtitle: 'Uptime y accesibilidad',
+                icon: '📊',
+                color: '#00acc1',
+                type: 'doughnut'
+            },
+            {
+                id: 'densidadDefectos',
+                title: 'Densidad de Defectos',
+                subtitle: 'Defectos por 1000 líneas de código',
+                icon: '🐛',
+                color: '#3949ab',
+                type: 'bar'
+            },
+            {
+                id: 'mttd',
+                title: 'Tiempo Medio de Detección [MTTD]',
+                subtitle: 'Minutos para detectar un problema',
+                icon: '⏱️',
+                color: '#fb8c00',
+                type: 'line'
+            },
+            {
+                id: 'mtbf',
+                title: 'Tiempo Medio Entre Fallas [MTBF]',
+                subtitle: 'Horas entre incidentes',
+                icon: '⚡',
+                color: '#43a047',
+                type: 'bar'
+            },
+            {
+                id: 'mttr',
+                title: 'Tiempo Medio de Resolución [MTTR]',
+                subtitle: 'Minutos para resolver incidentes',
+                icon: '🔧',
+                color: '#8e24aa',
+                type: 'line'
+            },
+            {
+                id: 'csat',
+                title: 'Satisfacción del Cliente [CSAT]',
+                subtitle: 'Calificación sobre 5 estrellas',
+                icon: '⭐',
+                color: '#fdd835',
+                type: 'radar'
+            },
+            {
+                id: 'tiempoRemediacion',
+                title: 'Tiempo Medio para Remediar Vulnerabilidad',
+                subtitle: 'Días para corregir fallos críticos',
+                icon: '🛡️',
+                color: '#d32f2f',
+                type: 'line'
+            },
+            {
+                id: 'coberturaCodigo',
+                title: 'Cobertura de Código',
+                subtitle: 'Porcentaje de código testeado',
+                icon: '✅',
+                color: '#388e3c',
+                type: 'doughnut'
+            }
+        ];
+
+        function getStatusClass(metricId, value) {
+            const thresholds = {
+                rotacion: { good: 80, warning: 60 },
+                tasaFallas: { good: 5, warning: 10 },
+                disponibilidad: { good: 99, warning: 95 },
+                densidadDefectos: { good: 1, warning: 2 },
+                mttd: { good: 15, warning: 30 },
+                mtbf: { good: 300, warning: 200 },
+                mttr: { good: 10, warning: 20 },
+                csat: { good: 4.5, warning: 4 },
+                tiempoRemediacion: { good: 20, warning: 40 },
+                coberturaCodigo: { good: 90, warning: 75 }
+            };
+
+            const threshold = thresholds[metricId];
+            
+            if (metricId === 'tasaFallas' || metricId === 'densidadDefectos' || 
+                metricId === 'mttd' || metricId === 'mttr' || metricId === 'tiempoRemediacion') {
+                if (value <= threshold.good) return 'status-good';
+                if (value <= threshold.warning) return 'status-warning';
+                return 'status-critical';
+            } else {
+                if (value >= threshold.good) return 'status-good';
+                if (value >= threshold.warning) return 'status-warning';
+                return 'status-critical';
+            }
+        }
+
+        function createChart(metric) {
+            const ctx = document.getElementById(`chart-${metric.id}`).getContext('2d');
+            const data = metricsData[metric.id];
+
+            const config = {
+                type: metric.type,
+                data: {
+                    labels: ['Mes -4', 'Mes -3', 'Mes -2', 'Mes -1', 'Actual'],
+                    datasets: [{
+                        label: metric.title,
+                        data: data.historico,
+                        backgroundColor: metric.type === 'line' ? 'transparent' : metric.color + '88',
+                        borderColor: metric.color,
+                        borderWidth: 3,
+                        fill: metric.type === 'line',
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(0,0,0,0.8)',
+                            padding: 12,
+                            titleFont: { size: 14 },
+                            bodyFont: { size: 13 }
+                        }
+                    },
+                    scales: metric.type !== 'doughnut' && metric.type !== 'radar' ? {
+                        y: {
+                            beginAtZero: true,
+                            grid: { color: 'rgba(0,0,0,0.1)' }
+                        },
+                        x: {
+                            grid: { display: false }
+                        }
+                    } : {}
+                }
+            };
+
+            if (metric.type === 'doughnut') {
+                config.data = {
+                    labels: ['Completado', 'Pendiente'],
+                    datasets: [{
+                        data: [data.actual, 100 - data.actual],
+                        backgroundColor: [metric.color, '#e0e0e0'],
+                        borderWidth: 0
+                    }]
+                };
+            }
+
+            if (metric.type === 'radar') {
+                config.data = {
+                    labels: ['Calidad', 'Precisión', 'Velocidad', 'Confiabilidad', 'UX'],
+                    datasets: [{
+                        data: [data.actual, data.actual - 0.2, data.actual + 0.1, data.actual - 0.3, data.actual + 0.2],
+                        backgroundColor: metric.color + '33',
+                        borderColor: metric.color,
+                        borderWidth: 2
+                    }]
+                };
+            }
+
+            new Chart(ctx, config);
+        }
+
+        function renderDashboard() {
+            const dashboard = document.getElementById('dashboard');
+            dashboard.innerHTML = '';
+
+            metrics.forEach(metric => {
+                const data = metricsData[metric.id];
+                const statusClass = getStatusClass(metric.id, data.actual);
+                
+                const card = document.createElement('div');
+                card.className = 'metric-card';
+                card.innerHTML = `
+                    <div class="metric-header">
+                        <div class="metric-icon" style="background: ${metric.color}33; color: ${metric.color};">
+                            ${metric.icon}
+                        </div>
+                        <div class="metric-title">
+                            <h3>${metric.title} <span class="status-indicator ${statusClass}"></span></h3>
+                            <p>${metric.subtitle}</p>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="chart-${metric.id}"></canvas>
+                    </div>
+                    <div class="metric-value" style="background: linear-gradient(135deg, ${metric.color} 0%, ${metric.color}cc 100%);">
+                        <div class="value">${data.actual}${metric.id.includes('tasa') || metric.id.includes('csat') ? '' : metric.id.includes('cobertura') || metric.id.includes('disponibilidad') || metric.id.includes('rotacion') ? '%' : metric.id.includes('mtbf') ? 'h' : metric.id.includes('Defectos') ? '/1K' : ' min'}</div>
+                        <div class="label">Valor Actual</div>
+                    </div>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-value">${data.historico[0]}</div>
+                            <div class="stat-label">Inicial</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value" style="color: ${data.actual > data.historico[data.historico.length - 2] ? '#4caf50' : '#f44336'}">
+                                ${((data.actual - data.historico[data.historico.length - 2]) / data.historico[data.historico.length - 2] * 100).toFixed(1)}%
+                            </div>
+                            <div class="stat-label">Cambio Mensual</div>
+                        </div>
+                    </div>
+                `;
+                
+                dashboard.appendChild(card);
+                
+                setTimeout(() => createChart(metric), 100);
+            });
+        }
+
+        function refreshData() {
+            // Simular actualización de datos
+            Object.keys(metricsData).forEach(key => {
+                const data = metricsData[key];
+                const variation = (Math.random() - 0.5) * 5;
+                data.actual = Math.max(0, data.actual + variation);
+                data.historico.shift();
+                data.historico.push(data.actual);
+            });
+            
+            renderDashboard();
+            
+            // Animación del botón
+            const btn = document.querySelector('.refresh-btn');
+            btn.textContent = '✅ Actualizado';
+            setTimeout(() => {
+                btn.textContent = '🔄 Actualizar Datos';
+            }, 2000);
+        }
+
+        // Inicializar dashboard
+        renderDashboard();
+
+        // Auto-refresh cada 30 segundos
+        setInterval(() => {
+            refreshData();
+        }, 30000);
+    </script>
+</body>
+</html>
