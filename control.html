@@ -198,13 +198,14 @@
     <div class="header">
         <h1>🍎 Tablero de Control Nutricional - Métricas de Calidad</h1>
         <p>Sistema de Análisis y Monitoreo de Detección de Frutas y Verduras con IA</p>
-        <li><a href="index.html" class="nav__links">Menu de inicio</a></li>
+<button class="refresh-btn" onclick="window.location.href='index.html'">
+    🔄 Menú de inicio
+</button>
     </div>
 
     <div class="dashboard" id="dashboard"></div>
 
-    <button class="refresh-btn" onclick="refreshData()">🔄 Actualizar Datos</button>
-
+    
     <script>
         // Datos simulados para las métricas
         let metricsData = {
